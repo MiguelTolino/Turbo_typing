@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   save_words.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 10:56:48 by mmateo-t          #+#    #+#             */
-/*   Updated: 2020/02/20 03:41:01 by miguel           ###   ########.fr       */
+/*   Created: 2020/02/20 17:31:34 by miguel            #+#    #+#             */
+/*   Updated: 2020/02/20 17:59:53 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 256
-# endif
+#include "counter.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-
-int	get_next_line(char **line);
-
-#endif
+void save_words(t_words *words, int n_words)
+{
+    words->str = malloc(sizeof(char) * (n_words + 1));
+}

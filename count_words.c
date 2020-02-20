@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   counter.h                                          :+:      :+:    :+:   */
+/*   count_words.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/20 02:11:06 by miguel            #+#    #+#             */
-/*   Updated: 2020/02/20 17:47:45 by miguel           ###   ########.fr       */
+/*   Created: 2020/02/20 17:40:38 by miguel            #+#    #+#             */
+/*   Updated: 2020/02/20 17:55:25 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
+#include "counter.h"
 
-typedef struct s_words
+int count_words(FILE *fd)
 {
-    char *str;
-    double time;
-}t_words;
+    int i;
+    int n_words;
+    char c;
 
-
-int get_next_line(char **line);
-
+    n_words = 0;
+    while (!feof(fd))
+    {
+        i = 0;
+        while ((c = getc(fd)) != ' ')
+        {
+            i++;
+        }
+        n_words++;
+    }
+    return(n_words);
+}

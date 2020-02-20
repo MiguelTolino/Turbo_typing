@@ -6,13 +6,13 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:11:17 by miguel            #+#    #+#             */
-/*   Updated: 2020/02/20 03:52:42 by miguel           ###   ########.fr       */
+/*   Updated: 2020/02/20 17:57:56 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "counter.h"
 
-void initial_msg(int difficult)
+void initial_msg(int *difficult)
 {
 	int i;
 
@@ -20,7 +20,7 @@ void initial_msg(int difficult)
 	printf("How difficult do you prefer to play? \n");
 	printf("1) Easy\n2) Normal\n3) Extreme\n");
 	printf("Your election: ");
-	scanf("%i", &difficult);
+	scanf("%i", difficult);
 	system("clear");
 	printf("Now, type the followings words as fast as you can.\n");
 	system("clear");
@@ -36,37 +36,54 @@ void initial_msg(int difficult)
 	system("clear");
 }
 
-void gameloop(int difficult)
+void gameloop(int difficult, FILE *fd)
 {
-	char *a;
+	char a[50];
 	char b[50];
 	int puntuation;
-	int br;
-	
-	while ((br = get_next_line(&a)) > 0)
+	int i;
+	int count;
+
+	count = 0;
+	while (1)
 	{
+		i = 0;
+		while ((a[i] = fgetc(fd)) != ' ')
+		{
+			i++;
+		}
+		a[i] = '\0';
 		printf("%s\n", a);
 		scanf("%s", b);
 		system("clear");
-		while(strcmp(a,b) != 0)
+		while (strcmp(a, b) != 0)
 		{
 			printf("%s\n", a);
 			scanf("%s", b);
 			system("clear");
+
 		}
-		free(a);
+		system("clear");
 	}
-	
 }
 
 int main()
 {
 	int difficult;
+	FILE *fd;
+	int n_words;
+	t_words *word;
 
-	initial_msg(difficult);
-	gameloop(difficult);
+	fd = fopen("test.txt", "r");
+	if (fd == NULL)
+	{
+		perror("No se pudo abrir correctamente");
+		return (-1);
+	}
+	n_words = count_words(fd);
+	save_words(word, n_words);
 	
-	
-	
-	
+
+	initial_msg(&difficult);
+	gameloop(difficult, fd);
 }
