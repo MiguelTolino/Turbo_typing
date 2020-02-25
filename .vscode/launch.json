@@ -8,7 +8,7 @@
             "name": "(gdb) Iniciar",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/miguel/Documentos/Games/Counter/a.out",
+            "program": "/home/miguel/Documentos/Games/Turbo_typing/counter",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

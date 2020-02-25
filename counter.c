@@ -6,84 +6,86 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 02:11:17 by miguel            #+#    #+#             */
-/*   Updated: 2020/02/20 17:57:56 by miguel           ###   ########.fr       */
+/*   Updated: 2020/02/25 18:18:03 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define MAX_WORD 80383
 #include "counter.h"
-
-void initial_msg(int *difficult)
-{
-	int i;
-
-	i = 3;
-	printf("How difficult do you prefer to play? \n");
-	printf("1) Easy\n2) Normal\n3) Extreme\n");
-	printf("Your election: ");
-	scanf("%i", difficult);
-	system("clear");
-	printf("Now, type the followings words as fast as you can.\n");
-	system("clear");
-	printf("Are you ready?\n");
-	printf("The game will start in ... \t");
-	sleep(2);
-	while (i > 0)
-	{
-		printf("%i\t", i--);
-	}
-	sleep(1);
-	printf("\n");
-	system("clear");
-}
-
-void gameloop(int difficult, FILE *fd)
-{
-	char a[50];
-	char b[50];
-	int puntuation;
-	int i;
-	int count;
-
-	count = 0;
-	while (1)
-	{
-		i = 0;
-		while ((a[i] = fgetc(fd)) != ' ')
-		{
-			i++;
-		}
-		a[i] = '\0';
-		printf("%s\n", a);
-		scanf("%s", b);
-		system("clear");
-		while (strcmp(a, b) != 0)
-		{
-			printf("%s\n", a);
-			scanf("%s", b);
-			system("clear");
-
-		}
-		system("clear");
-	}
-}
 
 int main()
 {
 	int difficult;
-	FILE *fd;
+	FILE *file;
 	int n_words;
-	t_words *word;
+	int i = 0;
+	int j = 0;
+	char c;
+	time_t t1, t2, t3, t4;
+	double diff_total, diff_parcial;
 
-	fd = fopen("test.txt", "r");
-	if (fd == NULL)
+	first_message(&n_words, &difficult);
+	char s1[MAX_WORD][30];
+	char s2[50];
+	t_words word[n_words];
+
+	file = fopen("words.txt", "r");
+	if (file == NULL)
 	{
 		perror("No se pudo abrir correctamente");
 		return (-1);
 	}
-	n_words = count_words(fd);
-	save_words(word, n_words);
+	while (!feof(file) && i < 80000)
+	{
+		j = 0;
+		while ((s1[i][j] = fgetc(file)) != EOF && isalnum(s1[i][j]))
+		{
+			j++;
+		}
+		if (j > 0)
+		{
+			s1[i][j] = '\0';
+			i++;
+		}
+	}
 	
-
-	initial_msg(&difficult);
-	gameloop(difficult, fd);
+	j = 0;
+	int index;
+	t1 = time(NULL);
+	srand(time(NULL));
+	while (j < n_words)
+	{
+		index = rand() % i;
+		printf("%s\n", s1[index]);
+		t3 = time(NULL);
+		scanf("%s", s2);
+		system("clear");
+		while (strcmp(s1[index], s2) != 0)
+		{
+			printf("%s\n", s1[index]);
+			scanf("%s", s2);
+			system("clear");
+		}
+		t4 = time(NULL);
+		strcpy(word[j].str, s1[index]);
+		word[j].time = difftime(t4, t3);
+		j++;
+	}
+	t2 = time(NULL);
+	diff_total = difftime(t2,t1);
+	printf("Total time: %i seconds\n\n", (int)diff_total);
+	
+	j = 0;
+	printf("Words vs Time\n");
+	while (j < n_words)
+	{
+		printf("%s - %i seconds\n", word[j].str, (int)word[j].time);
+		j++;
+	}
+	printf("\nGAME OVER\n");
+	printf("Press any key to exit\n"); 
+	scanf("%i", &i);
+	system("clear");
+	fclose(file);
+	return (0);
 }
