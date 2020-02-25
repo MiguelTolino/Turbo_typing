@@ -11,3 +11,5 @@ The program will count times between each word and will show it on your terminal
 ## Compilation
 
 There is a Makefile. Just type `make` and run `./Turbo_Typing`
+
+![Typing](https://i.udemycdn.com/course/750x422/1122628_d72e.jpg)
