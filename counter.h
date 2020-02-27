@@ -27,8 +27,7 @@ typedef struct s_words
     
 }t_words;
 
-void first_message(int *n_words, int *difficult);
-void open_file(FILE **file, int difficult);
+void first_message(int *n_words);
 
 #endif
 

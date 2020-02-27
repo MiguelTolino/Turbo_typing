@@ -15,7 +15,7 @@
 
 int main()
 {
-	int difficult;
+	//Variables Declaration
 	FILE *file;
 	int n_words;
 	int i = 0;
@@ -24,18 +24,21 @@ int main()
 	time_t t1, t2, t3, t4;
 	double diff_total, diff_parcial;
 
-	first_message(&n_words, &difficult);
+	//Show initial msg and declare arrays
+	first_message(&n_words);
 	char s1[MAX_WORD][30];
 	char s2[50];
 	t_words word[n_words];
 
+	//Open file and check erros
 	file = fopen("words.txt", "r");
 	if (file == NULL)
 	{
 		perror("No se pudo abrir correctamente");
 		return (-1);
 	}
-	while (!feof(file) && i < 80000)
+	//Save the whole file in memory
+	while (!feof(file) && i < MAX_WORD)
 	{
 		j = 0;
 		while ((s1[i][j] = fgetc(file)) != EOF && isalnum(s1[i][j]))
@@ -48,7 +51,7 @@ int main()
 			i++;
 		}
 	}
-	
+	//Use random function to show a random word and check wheather the word is correct	
 	j = 0;
 	int index;
 	t1 = time(NULL);
@@ -73,6 +76,7 @@ int main()
 	}
 	t2 = time(NULL);
 	diff_total = difftime(t2,t1);
+	//Show results and times
 	printf("Total time: %i seconds\n\n", (int)diff_total);
 	
 	j = 0;

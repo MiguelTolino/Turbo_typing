@@ -12,7 +12,7 @@
 
 #include "counter.h"
 
-void first_message(int *n_words, int *difficult)
+void first_message(int *n_words)
 {
     int exit;
     
