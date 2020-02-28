@@ -1,7 +1,7 @@
 # Turbo_typing
 How fast can you type a certain number of words on your keyboard?
 
-This game was make in C and it will run on your Terminal.
+This game was made in C and it will run on your Terminal.
 
 ## Game Description
 
